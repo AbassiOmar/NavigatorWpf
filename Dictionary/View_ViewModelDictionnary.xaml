@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:view="clr-namespace:BaseWPF.Views"
+                    xmlns:viewmodel="clr-namespace:BaseWPF.ViewModel"
+                    >
+    <DataTemplate DataType="{x:Type viewmodel:StudentsViewModel}">
+        <view:StudentsView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:CustomerViewModel}">
+        <view:CustomerView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:OrderViewModel}">
+        <view:OrderView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:HeaderPageViewModel}">
+        <view:HeaderPageView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type viewmodel:NavigatorViewModel}">
+        <view:NavigatorView/>
+    </DataTemplate>
+</ResourceDictionary>

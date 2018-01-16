@@ -1,0 +1,95 @@
+﻿using BaseWPF.BaseClass.Basecommand;
+using BaseWPF.BaseClass.BaseViewModel;
+using BaseWPF.Navigation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+
+
+namespace BaseWPF.ViewModel
+{
+    public class NavigatorViewModel:ViewModelBase
+    {
+        private ViewModelBase _currentViewModel;
+        private CustomerViewModel custListViewModel = new CustomerViewModel();
+        private OrderViewModel orderViewModelModel = new OrderViewModel();
+
+        public NavigatorViewModel()
+        {
+            LoadMenu();
+        }
+        public ViewModelBase CurrentViewModel
+        {
+            get { return _currentViewModel; }
+            set { SetProperty(ref _currentViewModel, value); }
+        }
+        private List<MenuItem> _menuGenerale;
+
+
+
+        public List<MenuItem> MenuGenerale
+        {
+            get { return _menuGenerale; }
+            set { _menuGenerale = value; OnPropertyChanged("MenuGenerale"); }
+        }
+
+        private void LoadMenu()
+        {
+
+            var menu = new List<MenuItem>();
+            var orders = new MenuItem("Orders")
+            {
+                Text = "Orders",
+                Command = new RelayCommand(param => OnNavigate(param), null)
+            };
+            var customers = new MenuItem("Customers")
+            {
+                Text = "Customers",
+                Command = new RelayCommand(param => OnNavigate(param), null)
+            };
+
+            var accueil = new MenuItem("Accueil")
+            {
+                Text = "Accueil",
+                Command = new RelayCommand(param => OnNavigate(param), null)
+            };
+
+            var company = new MenuItem("company")
+            {
+                Text = "company",
+
+            };
+
+            company.Children.Add(orders);
+            company.Children.Add(customers);
+            menu.Add(accueil);
+            menu.Add(company);
+            MenuGenerale = menu; ;
+        }
+
+        private void OnNavigate(object destination)
+        {
+            if (destination == null)
+            {
+                return;
+            }
+            string dest = destination.ToString().ToLower();
+            switch (dest)
+            {
+                case "orders":
+                    CurrentViewModel = orderViewModelModel;
+                    ((MainWindow)Application.Current.MainWindow).MainContent.DataContext = CurrentViewModel;
+                    break;
+                case "customers":
+                    CurrentViewModel = custListViewModel;
+                    break;
+                case "accueil":
+                    CurrentViewModel = this;
+                    break;
+            }
+        }
+    }
+}
